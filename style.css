@@ -1,0 +1,377 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+  min-height: 100vh;
+  background: #fff;
+}
+
+/* Прогресс-бар */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0 24px;
+  gap: 0;
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.step-indicator.active .step-number,
+.step-indicator.done .step-number {
+  background: #2979ff;
+  color: #fff;
+}
+
+.step-indicator.done .step-number {
+  background: #4caf50;
+}
+
+.step-label {
+  font-size: 11px;
+  color: #999;
+  transition: color 0.3s;
+}
+
+.step-indicator.active .step-label,
+.step-indicator.done .step-label {
+  color: #333;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: #e0e0e0;
+  margin: 0 8px;
+  margin-bottom: 18px;
+  transition: background 0.3s;
+}
+
+.step-line.done {
+  background: #4caf50;
+}
+
+/* Шаги мастера */
+.wizard-step {
+  display: none;
+}
+
+.wizard-step.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wizard-step h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+
+/* Карточки */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  padding: 16px;
+  border: 2px solid #e8e8e8;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card:hover {
+  border-color: #bbdefb;
+  background: #f8fbff;
+}
+
+.card.selected {
+  border-color: #2979ff;
+  background: #e3f2fd;
+}
+
+.card-name {
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.card-price {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.card.selected .card-price {
+  color: #2979ff;
+}
+
+/* Кнопки навигации */
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  padding-bottom: 16px;
+}
+
+.btn {
+  flex: 1;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-next,
+.btn-submit {
+  background: #2979ff;
+  color: #fff;
+}
+
+.btn-next:hover:not(:disabled),
+.btn-submit:hover {
+  background: #1565c0;
+}
+
+.btn-next:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-back {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.btn-back:hover {
+  background: #e0e0e0;
+}
+
+.btn-submit {
+  background: #4caf50;
+}
+
+.btn-submit:hover {
+  background: #388e3c;
+}
+
+/* Загрузка фото */
+.upload-area {
+  border: 2px dashed #d0d0d0;
+  border-radius: 12px;
+  padding: 32px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #999;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+  border-color: #2979ff;
+  background: #f8fbff;
+  color: #2979ff;
+}
+
+.upload-placeholder p {
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+.upload-hint {
+  font-size: 13px !important;
+  opacity: 0.7;
+}
+
+.photo-count {
+  font-size: 14px;
+  color: #666;
+  margin-top: 12px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.photo-thumb {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.photo-remove:hover {
+  background: rgba(220, 0, 0, 0.8);
+}
+
+/* Итог заказа */
+.summary {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 15px;
+}
+
+.summary-row:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.summary-row.total {
+  font-weight: 700;
+  font-size: 17px;
+  color: #1a1a1a;
+  border-top: 2px solid #e0e0e0;
+  margin-top: 4px;
+  padding-top: 12px;
+}
+
+.summary-label {
+  color: #666;
+}
+
+.summary-value {
+  font-weight: 500;
+}
+
+.summary-photos {
+  margin-top: 16px;
+}
+
+.summary-photos-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.summary-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.summary-photos-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Экран успеха */
+.success-message {
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.success-message svg {
+  margin-bottom: 16px;
+}
+
+.success-message h2 {
+  color: #4caf50;
+  margin-bottom: 8px;
+}
+
+.success-message p {
+  color: #666;
+  margin-bottom: 32px;
+  font-size: 15px;
+}
+
+/* Адаптивность */
+@media (max-width: 360px) {
+  .container {
+    padding: 12px;
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .summary-photos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

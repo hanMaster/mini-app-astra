@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Печать фотографий</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="progress-bar">
+      <div class="step-indicator active" data-step="1">
+        <span class="step-number">1</span>
+        <span class="step-label">Бумага</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-indicator" data-step="2">
+        <span class="step-number">2</span>
+        <span class="step-label">Размер</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-indicator" data-step="3">
+        <span class="step-number">3</span>
+        <span class="step-label">Фото</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-indicator" data-step="4">
+        <span class="step-number">4</span>
+        <span class="step-label">Итог</span>
+      </div>
+    </div>
+
+    <!-- Шаг 1: Выбор типа бумаги -->
+    <section class="wizard-step active" id="step-1">
+      <h2>Выберите тип бумаги</h2>
+      <div class="cards" id="paper-types"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-next" id="btn-next-1" disabled>Далее</button>
+      </div>
+    </section>
+
+    <!-- Шаг 2: Выбор размера -->
+    <section class="wizard-step" id="step-2">
+      <h2>Выберите размер</h2>
+      <div class="cards" id="paper-sizes"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-back" id="btn-back-2">Назад</button>
+        <button class="btn btn-next" id="btn-next-2" disabled>Далее</button>
+      </div>
+    </section>
+
+    <!-- Шаг 3: Загрузка фото -->
+    <section class="wizard-step" id="step-3">
+      <h2>Загрузите фотографии</h2>
+      <div class="upload-area" id="upload-area">
+        <div class="upload-placeholder" id="upload-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <p>Перетащите фото сюда</p>
+          <p class="upload-hint">или нажмите для выбора</p>
+        </div>
+        <input type="file" id="file-input" multiple accept="image/*" hidden>
+      </div>
+      <div class="photo-count" id="photo-count"></div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-back" id="btn-back-3">Назад</button>
+        <button class="btn btn-next" id="btn-next-3" disabled>Далее</button>
+      </div>
+    </section>
+
+    <!-- Шаг 4: Итог заказа -->
+    <section class="wizard-step" id="step-4">
+      <h2>Ваш заказ</h2>
+      <div class="summary" id="summary"></div>
+      <div class="summary-photos" id="summary-photos"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-back" id="btn-back-4">Назад</button>
+        <button class="btn btn-submit" id="btn-submit">Отправить заявку</button>
+      </div>
+    </section>
+
+    <!-- Экран успеха -->
+    <section class="wizard-step" id="step-success">
+      <div class="success-message">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h2>Заявка отправлена!</h2>
+        <p>Мы свяжемся с вами для подтверждения заказа.</p>
+        <button class="btn btn-next" id="btn-new-order">Новый заказ</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

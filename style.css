@@ -106,6 +106,56 @@ body {
   color: #1a1a1a;
 }
 
+/* Шаг контакта */
+.contact-description {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn-contact {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #2979ff;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.btn-contact:hover {
+  background: #1565c0;
+}
+
+.btn-contact:active {
+  transform: scale(0.98);
+}
+
+.contact-result {
+  margin-top: 16px;
+  padding: 16px;
+  background: #e8f5e9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact-label {
+  font-size: 15px;
+  color: #666;
+}
+
+.contact-phone {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
 /* Карточки */
 .cards {
   display: flex;

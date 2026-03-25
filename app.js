@@ -5,6 +5,7 @@
   let selectedType = null;
   let selectedSize = null;
   let photos = [];
+  let userPhone = null;
 
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => document.querySelectorAll(sel);
@@ -20,7 +21,22 @@
     }
   }
 
-  // Шаг 1: Типы бумаги
+  // Шаг 1: Запрос контакта
+  function setupContactRequest() {
+    $('#btn-request-contact').addEventListener('click', () => {
+      window.WebApp.requestContact();
+    });
+
+    window.WebApp.onEvent('WebAppRequestPhone', (data) => {
+      userPhone = data.phone;
+      $('#contact-phone').textContent = userPhone;
+      $('#contact-result').hidden = false;
+      $('#btn-request-contact').textContent = 'Изменить номер';
+      $('#btn-next-1').disabled = false;
+    });
+  }
+
+  // Шаг 2: Типы бумаги
   function renderPaperTypes() {
     const container = $('#paper-types');
     container.innerHTML = paperData.map((paper, i) =>
@@ -36,12 +52,12 @@
         card.classList.add('selected');
         selectedType = paperData[card.dataset.index];
         selectedSize = null;
-        $('#btn-next-1').disabled = false;
+        $('#btn-next-2').disabled = false;
       });
     });
   }
 
-  // Шаг 2: Размеры
+  // Шаг 3: Размеры
   function renderSizes() {
     const container = $('#paper-sizes');
     container.innerHTML = selectedType.sizes.map((s, i) =>
@@ -56,14 +72,14 @@
         container.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
         selectedSize = selectedType.sizes[card.dataset.index];
-        $('#btn-next-2').disabled = false;
+        $('#btn-next-3').disabled = false;
       });
     });
 
-    $('#btn-next-2').disabled = true;
+    $('#btn-next-3').disabled = true;
   }
 
-  // Шаг 3: Загрузка фото
+  // Шаг 4: Загрузка фото
   function setupUpload() {
     const area = $('#upload-area');
     const input = $('#file-input');
@@ -107,12 +123,12 @@
     if (photos.length === 0) {
       count.textContent = '';
       grid.innerHTML = '';
-      $('#btn-next-3').disabled = true;
+      $('#btn-next-4').disabled = true;
       return;
     }
 
     count.textContent = `Загружено: ${photos.length} фото`;
-    $('#btn-next-3').disabled = false;
+    $('#btn-next-4').disabled = false;
 
     grid.innerHTML = photos.map((_, i) =>
       `<div class="photo-thumb" data-index="${i}">
@@ -137,11 +153,15 @@
     });
   }
 
-  // Шаг 4: Итог
+  // Шаг 5: Итог
   function renderSummary() {
     const total = selectedSize.price * photos.length;
 
     $('#summary').innerHTML = `
+      <div class="summary-row">
+        <span class="summary-label">Телефон</span>
+        <span class="summary-value">${userPhone}</span>
+      </div>
       <div class="summary-row">
         <span class="summary-label">Тип бумаги</span>
         <span class="summary-value">${selectedType.name}</span>
@@ -208,15 +228,20 @@
     });
 
     // Подготовка контента шага
-    if (step === 2) renderSizes();
-    if (step === 4) renderSummary();
+    if (step === 3) renderSizes();
+    if (step === 5) renderSummary();
   }
 
   function resetWizard() {
     selectedType = null;
     selectedSize = null;
     photos = [];
+    userPhone = null;
     $('#btn-next-1').disabled = true;
+    $('#btn-next-2').disabled = true;
+    $('#contact-result').hidden = true;
+    $('#contact-phone').textContent = '';
+    $('#btn-request-contact').textContent = 'Поделиться контактом';
     $('#paper-types').querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
     $('#photo-grid').innerHTML = '';
     $('#photo-count').textContent = '';
@@ -226,17 +251,20 @@
   // Инициализация
   function init() {
     loadPaperData();
+    setupContactRequest();
     setupUpload();
 
     // Навигация вперёд
     $('#btn-next-1').addEventListener('click', () => goToStep(2));
     $('#btn-next-2').addEventListener('click', () => goToStep(3));
     $('#btn-next-3').addEventListener('click', () => goToStep(4));
+    $('#btn-next-4').addEventListener('click', () => goToStep(5));
 
     // Навигация назад
     $('#btn-back-2').addEventListener('click', () => goToStep(1));
     $('#btn-back-3').addEventListener('click', () => goToStep(2));
     $('#btn-back-4').addEventListener('click', () => goToStep(3));
+    $('#btn-back-5').addEventListener('click', () => goToStep(4));
 
     // Отправить заявку
     $('#btn-submit').addEventListener('click', () => goToStep('success'));

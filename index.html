@@ -5,52 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Печать фотографий</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://st.max.ru/js/max-web-app.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="progress-bar">
       <div class="step-indicator active" data-step="1">
         <span class="step-number">1</span>
-        <span class="step-label">Бумага</span>
+        <span class="step-label">Контакт</span>
       </div>
       <div class="step-line"></div>
       <div class="step-indicator" data-step="2">
         <span class="step-number">2</span>
-        <span class="step-label">Размер</span>
+        <span class="step-label">Бумага</span>
       </div>
       <div class="step-line"></div>
       <div class="step-indicator" data-step="3">
         <span class="step-number">3</span>
-        <span class="step-label">Фото</span>
+        <span class="step-label">Размер</span>
       </div>
       <div class="step-line"></div>
       <div class="step-indicator" data-step="4">
         <span class="step-number">4</span>
+        <span class="step-label">Фото</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-indicator" data-step="5">
+        <span class="step-number">5</span>
         <span class="step-label">Итог</span>
       </div>
     </div>
 
-    <!-- Шаг 1: Выбор типа бумаги -->
+    <!-- Шаг 1: Запрос контакта -->
     <section class="wizard-step active" id="step-1">
-      <h2>Выберите тип бумаги</h2>
-      <div class="cards" id="paper-types"></div>
+      <h2>Номер телефона</h2>
+      <p class="contact-description">Для подтверждения заказа нам понадобится ваш номер телефона.</p>
+      <button class="btn btn-contact" id="btn-request-contact">Поделиться контактом</button>
+      <div class="contact-result" id="contact-result" hidden>
+        <span class="contact-label">Ваш номер:</span>
+        <span class="contact-phone" id="contact-phone"></span>
+      </div>
       <div class="nav-buttons">
         <button class="btn btn-next" id="btn-next-1" disabled>Далее</button>
       </div>
     </section>
 
-    <!-- Шаг 2: Выбор размера -->
+    <!-- Шаг 2: Выбор типа бумаги -->
     <section class="wizard-step" id="step-2">
-      <h2>Выберите размер</h2>
-      <div class="cards" id="paper-sizes"></div>
+      <h2>Выберите тип бумаги</h2>
+      <div class="cards" id="paper-types"></div>
       <div class="nav-buttons">
         <button class="btn btn-back" id="btn-back-2">Назад</button>
         <button class="btn btn-next" id="btn-next-2" disabled>Далее</button>
       </div>
     </section>
 
-    <!-- Шаг 3: Загрузка фото -->
+    <!-- Шаг 3: Выбор размера -->
     <section class="wizard-step" id="step-3">
+      <h2>Выберите размер</h2>
+      <div class="cards" id="paper-sizes"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-back" id="btn-back-3">Назад</button>
+        <button class="btn btn-next" id="btn-next-3" disabled>Далее</button>
+      </div>
+    </section>
+
+    <!-- Шаг 4: Загрузка фото -->
+    <section class="wizard-step" id="step-4">
       <h2>Загрузите фотографии</h2>
       <div class="upload-area" id="upload-area">
         <div class="upload-placeholder" id="upload-placeholder">
@@ -67,18 +88,18 @@
       <div class="photo-count" id="photo-count"></div>
       <div class="photo-grid" id="photo-grid"></div>
       <div class="nav-buttons">
-        <button class="btn btn-back" id="btn-back-3">Назад</button>
-        <button class="btn btn-next" id="btn-next-3" disabled>Далее</button>
+        <button class="btn btn-back" id="btn-back-4">Назад</button>
+        <button class="btn btn-next" id="btn-next-4" disabled>Далее</button>
       </div>
     </section>
 
-    <!-- Шаг 4: Итог заказа -->
-    <section class="wizard-step" id="step-4">
+    <!-- Шаг 5: Итог заказа -->
+    <section class="wizard-step" id="step-5">
       <h2>Ваш заказ</h2>
       <div class="summary" id="summary"></div>
       <div class="summary-photos" id="summary-photos"></div>
       <div class="nav-buttons">
-        <button class="btn btn-back" id="btn-back-4">Назад</button>
+        <button class="btn btn-back" id="btn-back-5">Назад</button>
         <button class="btn btn-submit" id="btn-submit">Отправить заявку</button>
       </div>
     </section>

@@ -27,17 +27,17 @@
         // Сообщаем MAX, что приложение готово
         window.WebApp.ready();
 
-        $('#btn-request-contact').addEventListener('click', () => {
-            window.WebApp.requestContact();
-        });
-
-        window.WebApp.onEvent('WebAppRequestPhone', (data) => {
-            console.log('PHONE:', data);
-            userPhone = data.phone;
-            $('#contact-phone').textContent = userPhone;
-            $('#contact-result').hidden = false;
-            $('#btn-request-contact').textContent = 'Изменить номер';
-            $('#btn-next-1').disabled = false;
+        $('#btn-request-contact').addEventListener('click', async () => {
+            try {
+                const data = await window.WebApp.requestContact();
+                userPhone = data.phone;
+                $('#contact-phone').textContent = userPhone;
+                $('#contact-result').hidden = false;
+                $('#btn-request-contact').textContent = 'Изменить номер';
+                $('#btn-next-1').disabled = false;
+            } catch (e) {
+                console.error('requestContact error:', e);
+            }
         });
     }
 

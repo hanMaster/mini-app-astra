@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:st.max.ru)"
+    ]
+  }
+}

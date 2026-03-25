@@ -31,14 +31,12 @@
             window.WebApp.requestContact();
         });
 
-        window.WebApp.onEvent('contact_requested', (data) => {
-            if (data.status === 'sent') {
-                userPhone = data.phone;
-                $('#contact-phone').textContent = userPhone;
-                $('#contact-result').hidden = false;
-                $('#btn-request-contact').textContent = 'Изменить номер';
-                $('#btn-next-1').disabled = false;
-            }
+        window.WebApp.onEvent('WebAppRequestPhone', (data) => {
+            userPhone = data.phone;
+            $('#contact-phone').textContent = userPhone;
+            $('#contact-result').hidden = false;
+            $('#btn-request-contact').textContent = 'Изменить номер';
+            $('#btn-next-1').disabled = false;
         });
     }
 

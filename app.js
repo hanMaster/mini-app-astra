@@ -32,6 +32,7 @@
         });
 
         window.WebApp.onEvent('WebAppRequestPhone', (data) => {
+            console.log('PHONE:', data);
             userPhone = data.phone;
             $('#contact-phone').textContent = userPhone;
             $('#contact-result').hidden = false;
